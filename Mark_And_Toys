@@ -1,0 +1,47 @@
+/* DESCRIPTION
+
+Mark and Jane are very happy after having their first child. Their son loves toys, 
+so Mark wants to buy some. There are a number of different toys lying in front of 
+him, tagged with their prices. Mark has only a certain amount to spend, and he 
+wants to maximize the number of toys he buys with this money.
+
+Given a list of prices and an amount to spend, what is the maximum number of toys 
+Mark can buy? For example, if prices = [1, 2, 3, 4] and Mark has k = 7 to spend, 
+he can buy items [1,2,3] for 6, or [3,4] for 7 units of currency. He would choose 
+the first group of 3 items.
+
+DESCRIPTION */
+
+static int maximumToys(int[] prices, int k) {
+
+        // Used insertion sort to sort the prices array from least to greatest
+        for(int i = 1; i < prices.length; i++) {
+            int newElement = prices[i];
+            int location = i-1;
+        
+            while(location >=0 && prices[location] > newElement) { 
+                prices[location+1] = prices[location]; 
+                location--;
+            }
+            prices[location+1] = newElement;
+        }
+
+        // Total of the accumulation of prices
+        int sum = 0;
+        
+        // Number of toys within the budget
+        int count = 0;
+        
+        // Used to go through the array 
+        int x = 0;
+
+        // Counts the number of toys that are within Mark's budget using a do while loop
+        do{
+            sum += prices[x];
+            if(sum <= k)
+                count++;
+            x++;
+        } while(sum <= k);
+        
+        return count;
+    }
